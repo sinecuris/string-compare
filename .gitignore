@@ -1,3 +1,6 @@
+# I don't want to commit package-lock because it shouldn't matter
+package-lock.json
+
 # Logs
 logs
 *.log
