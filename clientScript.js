@@ -76,6 +76,7 @@ const join = async roomId => {
   state.roomId = roomId;
   roomDisplay.textContent = roomId;
   show(roomDisplay);
+  show(roomDisplayLabel);
   startLoading("Waiting for the other person to join the room.");
   const { status: joinStatus } = await get(`/join/${roomId}`, "join room");
   if (joinStatus === 404) {
@@ -84,6 +85,7 @@ const join = async roomId => {
     error("Failed to join both people to the room.");
   }
   doneLoading();
+  hide(roomDisplayLabel);
   hide(roomDisplay);
   show(inputDiv);
 };

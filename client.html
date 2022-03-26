@@ -10,6 +10,8 @@
 
       html {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.5rem;
+        box-sizing: border-box;
       }
 
       body {
@@ -17,13 +19,13 @@
         grid-template-columns: auto;
         justify-items: center;
         align-items: center;
+        min-height: 90vh;
       }
 
       #content {
         display: grid;
         grid-template-columns: auto;
         justify-items: center;
-        max-width: 50%;
       }
 
       #happyPath {
@@ -38,8 +40,34 @@
         text-align: center;
       }
 
-      p {
+      p, h1, h2 {
         text-align: center;
+      }
+
+      p {
+        max-width: 50vw;
+      }
+
+      #roomDisplay {
+        margin: 0;
+      }
+
+      #roomDisplayLabel {
+        margin: 0;
+      }
+
+      button {
+        margin: 0.2rem;
+        margin-top: 0.5rem;
+        padding: 0.2rem;
+        font-size: 1em;
+      }
+
+      input {
+        font-size: 1em;
+        max-width: 50vw;
+        text-align: center;
+        padding: 0.2rem;
       }
     </style>
 </head>
@@ -54,6 +82,7 @@
           <button id="joinRoomButton">Join Room</button>
         </p>
       </div>
+      <p id="roomDisplayLabel" style="display: none;">Room ID:</p>
       <h2 id="roomDisplay" style="display: none;"></h2>
       <div id="inputDiv" style="display: none;">
         <p>
