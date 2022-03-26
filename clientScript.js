@@ -73,10 +73,12 @@ const state = {};
 // joining rooms
 
 const join = async roomId => {
+  hide(roomJoinDiv);
   state.roomId = roomId;
   roomDisplay.textContent = roomId;
   show(roomDisplay);
   show(roomDisplayLabel);
+  show(inviteLinkButton);
   startLoading("Waiting for the other person to join the room.");
   const { status: joinStatus } = await get(`/join/${roomId}`, "join room");
   if (joinStatus === 404) {
@@ -85,6 +87,7 @@ const join = async roomId => {
     error("Failed to join both people to the room.");
   }
   doneLoading();
+  hide(inviteLinkButton);
   hide(roomDisplayLabel);
   hide(roomDisplay);
   show(inputDiv);
@@ -139,3 +142,22 @@ submitButton.onclick = async () => {
     error("Unrecognized response from server.");
   }
 };
+
+inviteLinkButton.onclick = () => {
+  const { roomId } = state;
+
+  const baseUrl = window.location.href.replace(/https?:\/\//, "").replace(window.location.pathname, "");
+  inviteLinkInput.value = `https://${baseUrl}/${roomId}`;
+
+  show(inviteLinkInput);
+  inviteLinkInput.select();
+  inviteLinkInput.setSelectionRange(0, 99999); // For mobile devices
+  navigator.clipboard.writeText(inviteLinkInput.value);
+  hide(inviteLinkInput);
+};
+
+// recognize if this is an invite link and join the room straight away
+if (window.location.pathname.match(/^\/[A-Z]{8}$/g)) {
+  state.roomId = window.location.pathname.replace(/\//g, "");
+  join(state.roomId);
+}
